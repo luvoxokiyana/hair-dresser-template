@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard — Demo Salon</title>
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <style>
+    .admin-shell { max-width: var(--max-w); margin: 0 auto; padding: var(--sp-7) var(--gutter); }
+    .admin-head { display: flex; justify-content: space-between; align-items: center; border-bottom: var(--b-hairline); padding-bottom: var(--sp-4); margin-bottom: var(--sp-6); }
+    .admin-head h1 { font-size: var(--fs-xl); }
+    .muted { color: var(--c-text-muted); }
+  </style>
+</head>
+<body>
+  <div class="admin-shell">
+    <div class="admin-head">
+      <h1>Dashboard</h1>
+      <button class="btn" id="signout" style="background:transparent;border:var(--b-hairline);">Sign out</button>
+    </div>
+
+    <p class="muted">
+      Phase 0 — you're signed in. Dashboard content, calendar, and bookings arrive in Phase 3.
+    </p>
+  </div>
+
+  <script type="module">
+    import { requireAuth, signOut } from '/assets/js/supabase.js';
+    await requireAuth();
+    document.getElementById('signout').addEventListener('click', async () => {
+      await signOut();
+      window.location.replace('/admin/index.html');
+    });
+  </script>
+</body>
+</html>

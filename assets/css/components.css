@@ -1,0 +1,28 @@
+/* Buttons, nav, footer. Expanded in Phase 1. */
+.container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+}
+
+.btn {
+    display: inline-block;
+    padding: var(--sp-3) var(--sp-5);
+    border-radius: var(--r-pill);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    transition: background var(--t-fast);
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--c-accent);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--c-accent-hover);
+}

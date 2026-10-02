@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo Salon</title>
+  <meta name="description" content="A modern salon in South Africa.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles (order matters) -->
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/public.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+  <div class="container header-inner">
+
+    <!-- Zone 1: logo -->
+    <a href="/" class="brand">
+      <span class="brand-name">Demo Salon</span>
+    </a>
+
+    <!-- Zone 2: nav links -->
+    <nav id="primary-nav" class="primary-nav" aria-label="Primary">
+      <ul>
+        <li><a href="/services.html">Services</a></li>
+        <li><a href="/gallery.html">Gallery</a></li>
+        <li><a href="/about.html">About</a></li>
+        <li><a href="/contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Zone 3: CTA + mobile toggle -->
+    <div class="header-actions">
+      <a href="/booking.html" class="btn btn-primary nav-cta">Book now</a>
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+  <main id="main">
+    <!-- Phase 0 placeholder -->
+    <section class="container" style="padding: var(--sp-10) var(--gutter); text-align:center;">
+      <p style="color: var(--c-text-muted); letter-spacing: var(--ls-wide); text-transform: uppercase; font-size: var(--fs-xs);">
+        Phase 0
+      </p>
+      <h1 style="margin-top: var(--sp-3);">Foundations in place.</h1>
+      <p style="max-width: var(--max-w-narrow); margin: var(--sp-4) auto 0; color: var(--c-text-muted);">
+        Design tokens, config, Supabase client, and shell are ready. Public site lands in Phase 1.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="brand-name">Demo Salon</p>
+        <p class="muted">© <span id="year"></span> Demo Salon. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/contact.html">Contact</a>
+        <a href="/admin/index.html">Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    // Phase 0: just set the year. Real page modules come in Phase 1.
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav toggle
+    const toggle = document.querySelector('.nav-toggle');
+    const nav = document.getElementById('primary-nav');
+    toggle?.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      nav.classList.toggle('is-open', !open);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+/* ==========================================================================
+   Design Tokens — the single source of truth for the visual system.
+   Every other stylesheet references these. Never hardcode values elsewhere.
+   ========================================================================== */
+
+:root {
+
+  /* --- Colour: warm neutral palette -------------------------------------- */
+  /* Backgrounds */
+  --c-bg:            #FAF7F2;   /* page background — warm cream */
+  --c-bg-alt:        #F3EDE4;   /* alternate sections — deeper cream */
+  --c-surface:       #FFFFFF;   /* cards, panels */
+
+  /* Text */
+  --c-text:          #2A2622;   /* body text — warm near-black */
+  --c-text-muted:    #6B6259;   /* secondary text */
+  --c-heading:       #1C1916;   /* headlines — deeper than body */
+
+  /* Accent */
+  --c-accent:        #C89B8A;   /* muted blush — buttons, links, highlights */
+  --c-accent-hover:  #B8875F;   /* deeper blush on hover */
+  --c-accent-soft:   #EFE0D8;   /* blush tint for backgrounds */
+
+  /* Lines & borders */
+  --c-border:        #E5DDD2;
+  --c-border-strong: #C9BEB0;
+
+  /* Status (used in admin) */
+  --c-success:       #6B8E6B;
+  --c-warning:       #D4A24C;
+  --c-danger:        #B85C4A;
+
+  /* --- Typography -------------------------------------------------------- */
+  --font-serif: 'Fraunces', 'Cormorant Garamond', Georgia, serif;
+  --font-sans:  'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Type scale — 1.25 ratio, fluid on large screens */
+  --fs-xs:   0.75rem;   /* 12px */
+  --fs-sm:   0.875rem;  /* 14px */
+  --fs-base: 1rem;      /* 16px */
+  --fs-md:   1.125rem;  /* 18px */
+  --fs-lg:   1.5rem;    /* 24px */
+  --fs-xl:   2rem;      /* 32px */
+  --fs-2xl:  2.75rem;   /* 44px */
+  --fs-3xl:  3.75rem;   /* 60px */
+
+  --lh-tight: 1.15;     /* headlines */
+  --lh-snug:  1.35;
+  --lh-body:  1.6;
+
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semi:    600;
+  --fw-bold:    700;
+
+  --ls-tight:  -0.02em;  /* headlines */
+  --ls-normal: 0;
+  --ls-wide:   0.08em;   /* small caps labels */
+
+  /* --- Spacing (4px base) ------------------------------------------------ */
+  --sp-1:  0.25rem;   /*  4px */
+  --sp-2:  0.5rem;    /*  8px */
+  --sp-3:  0.75rem;   /* 12px */
+  --sp-4:  1rem;      /* 16px */
+  --sp-5:  1.5rem;    /* 24px */
+  --sp-6:  2rem;      /* 32px */
+  --sp-7:  3rem;      /* 48px */
+  --sp-8:  4rem;      /* 64px */
+  --sp-9:  6rem;      /* 96px */
+  --sp-10: 8rem;      /* 128px */
+
+  /* --- Layout ------------------------------------------------------------ */
+  --max-w:        1200px;
+  --max-w-narrow: 720px;
+  --max-w-wide:   1440px;
+  --gutter:       var(--sp-5);
+
+  /* --- Radii ------------------------------------------------------------- */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 16px;
+  --r-pill: 999px;
+
+  /* --- Borders ----------------------------------------------------------- */
+  /* Brief says no heavy shadows. We use borders, not elevation. */
+  --b-hairline: 1px solid var(--c-border);
+  --b-strong:   1px solid var(--c-border-strong);
+
+  /* --- Motion ------------------------------------------------------------ */
+  --t-fast: 120ms ease;
+  --t-base: 220ms ease;
+  --t-slow: 400ms ease;
+
+  /* --- Z-index ----------------------------------------------------------- */
+  --z-header:  100;
+  --z-overlay: 200;
+  --z-modal:   300;
+  --z-toast:   400;
+}
+
+/* Optional: fluid headline scale on larger screens */
+@media (min-width: 900px) {
+  :root {
+    --fs-2xl: 3.25rem;
+    --fs-3xl: 4.5rem;
+  }
+}

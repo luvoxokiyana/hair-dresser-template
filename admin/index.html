@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin — Demo Salon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <style>
+    body { display: grid; place-items: center; min-height: 100vh; }
+    .login { width: 100%; max-width: 380px; padding: var(--sp-7); background: var(--c-surface); border: var(--b-hairline); border-radius: var(--r-lg); }
+    .login h1 { font-size: var(--fs-xl); margin-bottom: var(--sp-2); }
+    .login p.sub { color: var(--c-text-muted); font-size: var(--fs-sm); margin: 0 0 var(--sp-5); }
+    label { display: block; font-size: var(--fs-sm); margin-bottom: var(--sp-2); color: var(--c-text-muted); }
+    input { width: 100%; padding: var(--sp-3) var(--sp-4); border: var(--b-hairline); border-radius: var(--r-md); font-family: inherit; font-size: var(--fs-base); background: var(--c-bg); }
+    input:focus { outline: 2px solid var(--c-accent); outline-offset: 1px; border-color: transparent; }
+    .field { margin-bottom: var(--sp-4); }
+    button { width: 100%; padding: var(--sp-3); border: none; border-radius: var(--r-pill); background: var(--c-accent); color: #fff; font: inherit; font-weight: var(--fw-medium); letter-spacing: var(--ls-wide); text-transform: uppercase; font-size: var(--fs-sm); cursor: pointer; }
+    button:hover { background: var(--c-accent-hover); }
+    button:disabled { opacity: 0.6; cursor: wait; }
+    .err { color: var(--c-danger); font-size: var(--fs-sm); margin-top: var(--sp-3); min-height: 1.2em; }
+  </style>
+</head>
+<body>
+
+  <form class="login" id="login-form" novalidate>
+    <h1>Admin</h1>
+    <p class="sub">Sign in to manage your salon.</p>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="username" required>
+    </div>
+
+    <div class="field">
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required>
+    </div>
+
+    <button type="submit" id="submit">Sign in</button>
+    <p class="err" id="err" role="alert"></p>
+  </form>
+
+  <script type="module">
+    import { signIn, getSession } from '/assets/js/supabase.js';
+
+    // Already signed in? Skip straight to dashboard.
+    const existing = await getSession();
+    if (existing) window.location.replace('/admin/dashboard.html');
+
+    const form = document.getElementById('login-form');
+    const err  = document.getElementById('err');
+    const btn  = document.getElementById('submit');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      err.textContent = '';
+      btn.disabled = true;
+      try {
+        await signIn(form.email.value.trim(), form.password.value);
+        window.location.replace('/admin/dashboard.html');
+      } catch (ex) {
+        err.textContent = ex.message || 'Sign in failed.';
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

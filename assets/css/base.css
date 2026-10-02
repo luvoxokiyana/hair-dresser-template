@@ -1,0 +1,16 @@
+/* Reset + typography. Expanded in Phase 1. */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  line-height: var(--lh-body);
+  color: var(--c-text);
+  background: var(--c-bg);
+}
+h1, h2, h3 { font-family: var(--font-serif); color: var(--c-heading); line-height: var(--lh-tight); margin: 0; letter-spacing: var(--ls-tight); }
+h1 { font-size: var(--fs-2xl); font-weight: var(--fw-regular); }
+a { color: inherit; text-decoration: none; }
+.skip-link { position: absolute; left: -9999px; }
+.skip-link:focus { left: var(--sp-4); top: var(--sp-4); background: var(--c-surface); padding: var(--sp-2) var(--sp-4); z-index: var(--z-toast); }
