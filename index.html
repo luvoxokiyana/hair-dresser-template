@@ -3,92 +3,181 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Demo Salon</title>
+  <title>Home</title>
   <meta name="description" content="A modern salon in South Africa.">
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <!-- Styles (order matters) -->
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/tokens.css">
   <link rel="stylesheet" href="/assets/css/base.css">
   <link rel="stylesheet" href="/assets/css/components.css">
   <link rel="stylesheet" href="/assets/css/public.css">
 </head>
 <body>
-
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- HEADER -->
   <header class="site-header">
-  <div class="container header-inner">
+    <div class="container header-inner">
+      <nav class="nav-cluster" aria-label="Primary">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/gallery.html">Gallery</a></li>
+          <li><a href="/about.html">About us</a></li>
+        </ul>
+      </nav>
 
-    <!-- Zone 1: logo -->
-    <a href="/" class="brand">
-      <span class="brand-name">Demo Salon</span>
-    </a>
+      <nav class="nav-cluster nav-cluster--right" aria-label="Secondary">
+        <ul>
+          <li><a href="/contact.html">Contact us</a></li>
+          <li><a href="/contact.html">Getting here</a></li>
+        </ul>
+      </nav>
 
-    <!-- Zone 2: nav links -->
-    <nav id="primary-nav" class="primary-nav" aria-label="Primary">
-      <ul>
-        <li><a href="/services.html">Services</a></li>
-        <li><a href="/gallery.html">Gallery</a></li>
-        <li><a href="/about.html">About</a></li>
-        <li><a href="/contact.html">Contact</a></li>
-      </ul>
-    </nav>
-
-    <!-- Zone 3: CTA + mobile toggle -->
-    <div class="header-actions">
-      <a href="/booking.html" class="btn btn-primary nav-cta">Book now</a>
-
-      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Menu">
+      <button class="nav-toggle" aria-expanded="false" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
-
-  </div>
-</header>
+  </header>
 
   <main id="main">
-    <!-- Phase 0 placeholder -->
-    <section class="container" style="padding: var(--sp-10) var(--gutter); text-align:center;">
-      <p style="color: var(--c-text-muted); letter-spacing: var(--ls-wide); text-transform: uppercase; font-size: var(--fs-xs);">
-        Phase 0
-      </p>
-      <h1 style="margin-top: var(--sp-3);">Foundations in place.</h1>
-      <p style="max-width: var(--max-w-narrow); margin: var(--sp-4) auto 0; color: var(--c-text-muted);">
-        Design tokens, config, Supabase client, and shell are ready. Public site lands in Phase 1.
-      </p>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero-wordmark" data-business-name>Salon</h1>
+      </div>
+
+      <div class="full-bleed hero-media">
+        <img
+          src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=2000&q=80"
+          alt="Warm salon interior with natural light"
+          fetchpriority="high">
+        <div class="hero-overlay">
+          <p class="hero-kicker">The Art of Hair, Redefined</p>
+          <h1>Hair Services in Johannesburg</h1>
+          <a href="/booking.html" class="btn btn-primary">Book now</a>
+        </div>
+      </div>
     </section>
+
+    <!-- ABOUT — asymmetric -->
+    <section class="section">
+      <div class="container asym">
+        <h2>About us</h2>
+        <div class="asym-body">
+          <p>Welcome to <span data-business-name>our salon</span> — a quiet, considered studio built around listening first and cutting second. We take our time, we ask questions, and we cut for how you actually live.</p>
+          <p>No conveyor-belt appointments. No upselling. Just good hair, done properly.</p>
+          <a href="/about.html" class="asym-cta">Find out more</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES — numbered cards -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section-head">
+          <span class="bracket">Explore our</span>
+          <h2>Hair services</h2>
+        </div>
+        <div class="num-grid" id="services-preview">
+          <div class="empty-state">Loading services…</div>
+        </div>
+        <p style="margin-top: var(--sp-7);">
+          <a href="/services.html" class="btn btn-ghost">See full service list</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- GALLERY — staggered collage -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="bracket">Recent</span>
+          <h2>Our work</h2>
+        </div>
+        <div class="collage" id="gallery-preview">
+          <div class="empty-state">Loading gallery…</div>
+        </div>
+        <p style="margin-top: var(--sp-7);">
+          <a href="/gallery.html" class="asym-cta">See full gallery</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section-head">
+          <span class="bracket">Kind words</span>
+          <h2>What clients say</h2>
+        </div>
+        <div class="testimonial-grid">
+          <figure class="testimonial">
+            <blockquote class="testimonial-quote">"Best cut I've had in years. She actually listened — I walked out feeling like myself."</blockquote>
+            <figcaption class="testimonial-author">Thandi M.</figcaption>
+          </figure>
+          <figure class="testimonial">
+            <blockquote class="testimonial-quote">"The colour is exactly what I asked for. Booked again immediately."</blockquote>
+            <figcaption class="testimonial-author">Rachel P.</figcaption>
+          </figure>
+          <figure class="testimonial">
+            <blockquote class="testimonial-quote">"Calm space, no rush, honest advice. Rare."</blockquote>
+            <figcaption class="testimonial-author">Sipho N.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-band">
+      <h2>Ready when you are</h2>
+      <a href="/booking.html" class="btn btn-primary">Book an appointment</a>
+    </section>
+
   </main>
 
+  <!-- FOOTER -->
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>
-        <p class="brand-name">Demo Salon</p>
-        <p class="muted">© <span id="year"></span> Demo Salon. All rights reserved.</p>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <p class="footer-brand" data-business-name>Salon</p>
+          <a href="/booking.html" class="btn btn-primary">Book now</a>
+        </div>
+
+        <div>
+          <p class="footer-head">Visit</p>
+          <ul class="footer-list" id="footer-visit">
+            <li>—</li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer-head">Hours</p>
+          <ul class="footer-list" id="footer-hours">
+            <li>—</li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer-head">Follow</p>
+          <ul class="footer-list" id="footer-social">
+            <li>—</li>
+          </ul>
+        </div>
       </div>
-      <div class="footer-links">
-        <a href="/contact.html">Contact</a>
-        <a href="/admin/index.html">Admin</a>
+
+      <hr class="footer-rule">
+
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> <span data-business-name>Salon</span></span>
+        <span><a href="/admin/index.html">Admin</a></span>
       </div>
     </div>
   </footer>
 
-  <script type="module">
-    // Phase 0: just set the year. Real page modules come in Phase 1.
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Mobile nav toggle
-    const toggle = document.querySelector('.nav-toggle');
-    const nav = document.getElementById('primary-nav');
-    toggle?.addEventListener('click', () => {
-      const open = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!open));
-      nav.classList.toggle('is-open', !open);
-    });
-  </script>
+  <script type="module" src="/assets/js/public/home.js"></script>
 </body>
 </html>

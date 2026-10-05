@@ -1,28 +1,220 @@
-/* Buttons, nav, footer. Expanded in Phase 1. */
-.container {
-    max-width: var(--max-w);
-    margin: 0 auto;
-    padding: 0 var(--gutter);
-}
+/* ==========================================================================
+   components.css — buttons, mono labels, cards, forms.
+   ========================================================================== */
+
+/* --- Buttons ------------------------------------------------------------- */
 
 .btn {
-    display: inline-block;
-    padding: var(--sp-3) var(--sp-5);
-    border-radius: var(--r-pill);
-    font-size: var(--fs-sm);
-    font-weight: var(--fw-medium);
-    letter-spacing: var(--ls-wide);
-    text-transform: uppercase;
-    transition: background var(--t-fast);
-    cursor: pointer;
-    border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: 1.1rem 2.2rem;
+  border: none;
+  border-radius: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semi);
+  letter-spacing: var(--ls-nav);
+  text-transform: uppercase;
+  line-height: 1;
+  cursor: pointer;
+  transition: background var(--t-fast), color var(--t-fast);
+  white-space: nowrap;
 }
 
 .btn-primary {
-    background: var(--c-accent);
-    color: #fff;
+  background: var(--c-accent);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--c-accent-hover); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--c-heading);
+  border: 1px solid var(--c-heading);
+}
+.btn-ghost:hover { background: var(--c-heading); color: #fff; }
+
+.btn-link {
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--c-heading);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-nav);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semi);
+  border-bottom: 1px solid var(--c-heading);
+  padding-bottom: 2px;
+}
+.btn-link:hover { color: var(--c-accent); border-color: var(--c-accent); }
+
+.btn-block { width: 100%; }
+
+/* --- Mono bracket label -------------------------------------------------- */
+
+.bracket {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+  margin: 0 0 var(--sp-3);
+}
+.bracket::before { content: "[ "; }
+.bracket::after  { content: " ]"; }
+
+/* --- Section head -------------------------------------------------------- */
+
+.section-head {
+  margin-bottom: var(--sp-7);
+  max-width: 100%;
 }
 
-.btn-primary:hover {
-    background: var(--c-accent-hover);
+.section-head .bracket { display: block; }
+
+.section-head h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-section);
+  font-weight: var(--fw-bold);
+  line-height: 0.95;
+  letter-spacing: var(--ls-display);
+  text-transform: uppercase;
+  color: var(--c-heading);
+  margin: 0;
+}
+
+.section-lede {
+  font-size: var(--fs-md);
+  color: var(--c-text-muted);
+  max-width: 52ch;
+  margin-top: var(--sp-5);
+  line-height: var(--lh-snug);
+}
+
+/* --- Numbered card (services) -------------------------------------------- */
+
+.num-card {
+  display: block;
+}
+
+.num-card .num {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-mono);
+  color: var(--c-text-muted);
+  margin-bottom: var(--sp-3);
+}
+.num-card .num::before { content: "["; }
+.num-card .num::after  { content: "]"; }
+
+.num-card .num-photo {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--c-bg-alt);
+  margin-bottom: var(--sp-4);
+}
+.num-card .num-photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform var(--t-slow);
+}
+.num-card:hover .num-photo img { transform: scale(1.03); }
+
+.num-card h3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-heading);
+  text-transform: uppercase;
+  margin: 0 0 var(--sp-2);
+}
+
+.num-card p {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+  line-height: var(--lh-snug);
+  margin: 0;
+}
+
+/* --- Forms --------------------------------------------------------------- */
+
+.form-field { margin-bottom: var(--sp-4); }
+
+.form-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+  margin-bottom: var(--sp-2);
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--c-surface);
+  border: var(--b-hairline);
+  border-radius: var(--r-sm);
+  font-family: inherit;
+  font-size: var(--fs-base);
+  color: var(--c-text);
+  transition: border-color var(--t-fast);
+}
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--c-accent);
+}
+.form-textarea { min-height: 8rem; resize: vertical; }
+.form-error { color: var(--c-danger); font-size: var(--fs-sm); margin-top: var(--sp-2); min-height: 1.2em; }
+
+/* --- Meta rows (contact details) ----------------------------------------- */
+
+.meta-list { list-style: none; margin: 0; padding: 0; }
+.meta-list li {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: var(--sp-4);
+  padding: var(--sp-4) 0;
+  border-bottom: var(--b-hairline);
+  font-size: var(--fs-sm);
+}
+.meta-list li:last-child { border-bottom: none; }
+.meta-list .meta-key {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+  align-self: center;
+}
+.meta-list a:hover { color: var(--c-accent); }
+
+/* --- Empty / loading ---------------------------------------------------- */
+
+.empty-state {
+  padding: var(--sp-7);
+  text-align: center;
+  color: var(--c-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  border: 1px dashed var(--c-border);
+}
+
+/* --- Eyebrow-less section rule ------------------------------------------ */
+
+.rule {
+  border: none;
+  border-top: var(--b-hairline);
+  margin: 0;
 }

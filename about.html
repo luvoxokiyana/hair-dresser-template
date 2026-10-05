@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About</title>
+  <meta name="description" content="The salon, the people, the approach.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/public.css">
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <nav class="nav-cluster" aria-label="Primary">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/gallery.html">Gallery</a></li>
+          <li><a href="/about.html">About us</a></li>
+        </ul>
+      </nav>
+
+      <nav class="nav-cluster nav-cluster--right" aria-label="Secondary">
+        <ul>
+          <li><a href="/contact.html">Contact us</a></li>
+          <li><a href="/contact.html">Getting here</a></li>
+        </ul>
+        <a href="/booking.html" class="nav-book">BOOK →</a>
+      </nav>
+
+      <button class="nav-toggle" aria-expanded="false" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <span class="bracket">About us</span>
+        <h1>Considered hair, in a calm space</h1>
+        <p>A small studio built around listening first, cutting second.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container asym">
+        <h2>Our story</h2>
+        <div class="asym-body">
+          <p>We started this studio because we were tired of rushed appointments and salons that felt like conveyor
+            belts.</p>
+          <p>Here, you get the full hour. We talk about your hair, your routine, how much time you actually want to
+            spend on it in the morning. Then we cut for that.</p>
+          <p>No upselling. No pressure. Just good hair, done properly.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section-head">
+          <span class="bracket">The team</span>
+          <h2>Who you'll meet</h2>
+        </div>
+        <div class="staff-grid">
+          <figure class="staff-card">
+            <div class="staff-photo">
+              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80" alt="" loading="lazy">
+            </div>
+            <p class="staff-name">Naledi</p>
+            <p class="staff-role">Founder · Stylist</p>
+          </figure>
+          <figure class="staff-card">
+            <div class="staff-photo">
+              <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80" alt="" loading="lazy">
+            </div>
+            <p class="staff-name">Jade</p>
+            <p class="staff-role">Colour specialist</p>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <h2>Come see for yourself</h2>
+      <a href="/booking.html" class="btn btn-primary">Book an appointment</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="brand-name" data-business-name>Salon</p>
+        <p class="muted">© <span id="year"></span> <span data-business-name>Salon</span>. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/contact.html">Contact</a>
+        <a href="/admin/index.html">Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/assets/js/public/about.js"></script>
+</body>
+
+</html>

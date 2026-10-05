@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BOOKINGS_TITLE — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/admin/assets/admin.css">
+</head>
+<body class="admin-body">
+
+  <div class="admin-shell">
+    <aside class="a-sidebar" id="sidebar"></aside>
+
+    <div class="a-main">
+      <header class="a-topbar" id="topbar"></header>
+
+      <main class="a-content">
+        <div class="a-page-head">
+          <h1 class="a-page-title">PAGE_TITLE</h1>
+          <p class="a-page-sub">PAGE_SUB</p>
+        </div>
+
+        <div class="a-card">
+          <div class="a-card-body">
+            <div class="a-empty">
+              <h3>Coming in a later phase</h3>
+              <p>This page is part of the admin shell. Functionality arrives in its phase.</p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module">
+    import { guard, mountSidebar, mountTopbar, mountUser } from './assets/admin.js';
+    const session = await guard();
+    if (session) {
+      mountSidebar('PAGE_KEY');
+      mountTopbar('PAGE_TITLE');
+      await mountUser(session);
+    }
+  </script>
+</body>
+</html>

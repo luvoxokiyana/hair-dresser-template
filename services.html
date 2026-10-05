@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Services</title>
+  <meta name="description" content="Our full list of services.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/public.css">
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <nav class="nav-cluster" aria-label="Primary">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/gallery.html">Gallery</a></li>
+          <li><a href="/about.html">About us</a></li>
+        </ul>
+      </nav>
+
+      <nav class="nav-cluster nav-cluster--right" aria-label="Secondary">
+        <ul>
+          <li><a href="/contact.html">Contact us</a></li>
+          <li><a href="/contact.html">Getting here</a></li>
+        </ul>
+        <a href="/booking.html" class="nav-book">BOOK →</a>
+      </nav>
+
+      <button class="nav-toggle" aria-expanded="false" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <span class="bracket">Services</span>
+        <h1>Everything we offer</h1>
+        <p>Clear prices, honest durations. If you're not sure what you need, ask — we'll tell you straight.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container container--narrow">
+        <div class="num-grid" id="services-full">
+          <div class="empty-state">Loading services…</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <h2>Found something you like</h2>
+      <a href="/booking.html" class="btn btn-primary">Book an appointment</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p class="brand-name" data-business-name>Salon</p>
+        <p class="muted">© <span id="year"></span> <span data-business-name>Salon</span>. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/contact.html">Contact</a>
+        <a href="/admin/index.html">Admin</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/assets/js/public/services.js"></script>
+</body>
+
+</html>
