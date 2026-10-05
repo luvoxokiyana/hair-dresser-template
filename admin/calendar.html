@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BOOKINGS_TITLE — Admin</title>
+  <title>Calendar — Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -19,31 +19,34 @@
       <header class="a-topbar" id="topbar"></header>
 
       <main class="a-content">
-        <div class="a-page-head">
-          <h1 class="a-page-title">PAGE_TITLE</h1>
-          <p class="a-page-sub">PAGE_SUB</p>
+
+        <!-- Calendar toolbar -->
+        <div class="a-cal-toolbar">
+          <div class="a-cal-nav">
+            <button type="button" class="a-btn a-btn-ghost a-btn-sm" id="cal-prev" aria-label="Previous">←</button>
+            <button type="button" class="a-btn a-btn-ghost a-btn-sm" id="cal-today">Today</button>
+            <button type="button" class="a-btn a-btn-ghost a-btn-sm" id="cal-next" aria-label="Next">→</button>
+            <h1 class="a-cal-range" id="cal-range">—</h1>
+          </div>
+          <div class="a-cal-view-toggle" role="group" aria-label="View">
+            <button type="button" class="a-btn a-btn-ghost a-btn-sm is-active" data-view="week">Week</button>
+            <button type="button" class="a-btn a-btn-ghost a-btn-sm" data-view="day">Day</button>
+          </div>
         </div>
 
-        <div class="a-card">
-          <div class="a-card-body">
-            <div class="a-empty">
-              <h3>Coming in a later phase</h3>
-              <p>This page is part of the admin shell. Functionality arrives in its phase.</p>
+        <!-- Calendar grid -->
+        <div class="a-card a-cal-card">
+          <div class="a-cal-scroll" id="cal-scroll">
+            <div class="a-cal-grid" id="cal-grid">
+              <div class="a-empty"><h3>Loading…</h3></div>
             </div>
           </div>
         </div>
+
       </main>
     </div>
   </div>
 
-  <script type="module">
-    import { guard, mountSidebar, mountTopbar, mountUser } from './assets/admin.js';
-    const session = await guard();
-    if (session) {
-      mountSidebar('PAGE_KEY');
-      mountTopbar('PAGE_TITLE');
-      await mountUser(session);
-    }
-  </script>
+  <script type="module" src="/admin/assets/calendar.js"></script>
 </body>
 </html>

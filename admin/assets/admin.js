@@ -169,3 +169,123 @@ export function formatTime(d) {
     hour12: false,
   }).format(date);
 }
+
+
+/* --- Toast ----------------------------------------------------------- */
+
+
+/* --- Toast --------------------------------------------------------------- */
+
+/**
+ * Show a small toast at the bottom of the screen.
+ * @param {string} message
+ * @param {{label?: string, onClick?: Function, duration?: number}} [action]
+ */
+export function toast(message, action) {
+  let el = document.getElementById('a-toast');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'a-toast';
+    el.className = 'a-toast';
+    document.body.appendChild(el);
+  }
+  el.innerHTML = '';
+
+  const span = document.createElement('span');
+  span.textContent = message;
+  el.appendChild(span);
+
+  if (action && action.label && typeof action.onClick === 'function') {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = action.label;
+    btn.className = 'a-toast-action';
+    btn.addEventListener('click', () => {
+      action.onClick();
+      hide();
+    });
+    el.appendChild(btn);
+  }
+
+  el.classList.add('is-visible');
+  const timeout = setTimeout(hide, action?.duration ?? 5000);
+
+  function hide() {
+    clearTimeout(timeout);
+    el.classList.remove('is-visible');
+  }
+}
+
+/* --- Slide-over --------------------------------------------------------- */
+
+/**
+ * Open a slide-over panel with content.
+ * Returns a close() function.
+ */
+export function openSlideOver({ title, body, actions }) {
+  /* Remove any existing panel */
+  document.getElementById('a-slideover')?.remove();
+  document.getElementById('a-slideover-backdrop')?.remove();
+
+  const backdrop = document.createElement('div');
+  backdrop.id = 'a-slideover-backdrop';
+  backdrop.className = 'a-slideover-backdrop';
+  backdrop.addEventListener('click', close);
+
+  const panel = document.createElement('aside');
+  panel.id = 'a-slideover';
+  panel.className = 'a-slideover';
+  panel.innerHTML = `
+    <header class="a-slideover-head">
+      <h2 class="a-slideover-title">${title || ''}</h2>
+      <button type="button" class="a-slideover-close" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </header>
+    <div class="a-slideover-body"></div>
+    ${actions ? '<footer class="a-slideover-foot" id="a-slideover-actions"></footer>' : ''}
+  `;
+
+  panel.querySelector('.a-slideover-body').innerHTML = body || '';
+  panel.querySelector('.a-slideover-close').addEventListener('click', close);
+
+  if (actions) {
+    const foot = panel.querySelector('#a-slideover-actions');
+    for (const a of actions) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `a-btn ${a.variant === 'primary' ? 'a-btn-primary' : 'a-btn-ghost'}`;
+      btn.textContent = a.label;
+      btn.addEventListener('click', () => a.onClick(close));
+      foot.appendChild(btn);
+    }
+  }
+
+  document.body.appendChild(backdrop);
+  document.body.appendChild(panel);
+  document.body.style.overflow = 'hidden';
+  requestAnimationFrame(() => {
+    backdrop.classList.add('is-visible');
+    panel.classList.add('is-visible');
+  });
+
+  /* Esc to close */
+  const escHandler = (e) => { if (e.key === 'Escape') close(); };
+  document.addEventListener('keydown', escHandler);
+
+  function close() {
+    document.removeEventListener('keydown', escHandler);
+    backdrop.classList.remove('is-visible');
+    panel.classList.remove('is-visible');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      backdrop.remove();
+      panel.remove();
+    }, 220);
+  }
+
+  return close;
+}
