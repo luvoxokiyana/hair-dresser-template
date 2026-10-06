@@ -1679,3 +1679,152 @@
   margin: 0;
   min-height: 1.2em;
 }
+
+/* --------------------------------------------------------------------------
+   Settings — tabs
+   -------------------------------------------------------------------------- */
+
+.st-tabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--a-border);
+  margin-bottom: 24px;
+  overflow-x: auto;
+}
+
+.st-tab {
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--a-text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  white-space: nowrap;
+  transition: color var(--t-fast), border-color var(--t-fast);
+}
+
+.st-tab:hover { color: var(--a-text); }
+
+.st-tab.is-active {
+  color: var(--a-accent-hover);
+  border-bottom-color: var(--a-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Panels
+   -------------------------------------------------------------------------- */
+
+.st-panel { display: none; }
+.st-panel.is-active { display: block; }
+
+.st-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   Fields
+   -------------------------------------------------------------------------- */
+
+.st-field { margin-bottom: 16px; }
+.st-field:last-child { margin-bottom: 0; }
+
+.st-label {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--a-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.st-hint {
+  font-size: 0.75rem;
+  color: var(--a-text-muted);
+  margin: 6px 0 0;
+  line-height: 1.4;
+}
+
+.st-hint a {
+  color: var(--a-accent-hover);
+  border-bottom: 1px solid transparent;
+}
+.st-hint a:hover { border-bottom-color: var(--a-accent-hover); }
+
+.st-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 700px) {
+  .st-row { grid-template-columns: 1fr; }
+}
+
+/* --------------------------------------------------------------------------
+   Hours grid
+   -------------------------------------------------------------------------- */
+
+.st-hours {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.st-hours-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.st-hours-day {
+  font-size: 0.8125rem;
+  color: var(--a-text);
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   Checkbox row
+   -------------------------------------------------------------------------- */
+
+.st-checkbox-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+
+.st-checkbox-row label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: var(--a-text);
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   Actions + messages
+   -------------------------------------------------------------------------- */
+
+.st-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.st-message {
+  font-size: 0.8125rem;
+  margin: 0;
+  min-height: 1.2em;
+}
+.st-message.is-success { color: var(--a-success); }
+.st-message.is-error   { color: var(--a-danger); }

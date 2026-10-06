@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BOOKINGS_TITLE — Admin</title>
+  <title>Settings — Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -20,30 +20,276 @@
 
       <main class="a-content">
         <div class="a-page-head">
-          <h1 class="a-page-title">PAGE_TITLE</h1>
-          <p class="a-page-sub">PAGE_SUB</p>
+          <h1 class="a-page-title">Settings</h1>
+          <p class="a-page-sub">Business details, booking rules, and your account.</p>
         </div>
 
-        <div class="a-card">
-          <div class="a-card-body">
-            <div class="a-empty">
-              <h3>Coming in a later phase</h3>
-              <p>This page is part of the admin shell. Functionality arrives in its phase.</p>
+        <!-- Tabs -->
+        <div class="st-tabs" role="tablist">
+          <button type="button" class="st-tab is-active" data-tab="business" role="tab">Business</button>
+          <button type="button" class="st-tab" data-tab="rules"    role="tab">Booking rules</button>
+          <button type="button" class="st-tab" data-tab="calendar" role="tab">Calendar</button>
+          <button type="button" class="st-tab" data-tab="account"  role="tab">Account</button>
+        </div>
+
+        <!-- Business panel -->
+        <section class="st-panel is-active" data-panel="business">
+          <form id="form-business" class="st-form">
+            <div class="a-card">
+              <div class="a-card-head">
+                <h2 class="a-card-title">Business</h2>
+              </div>
+              <div class="a-card-body">
+                <div class="st-field">
+                  <label class="st-label" for="b-business_name">Business name</label>
+                  <input class="a-input" id="b-business_name" type="text" required>
+                </div>
+                <div class="st-field">
+                  <label class="st-label" for="b-tagline">Tagline</label>
+                  <input class="a-input" id="b-tagline" type="text" placeholder="Hair, done properly.">
+                </div>
+              </div>
+            </div>
+
+            <div class="a-card">
+              <div class="a-card-head">
+                <h2 class="a-card-title">Contact</h2>
+              </div>
+              <div class="a-card-body">
+                <div class="st-row">
+                  <div class="st-field">
+                    <label class="st-label" for="b-phone">Phone</label>
+                    <input class="a-input" id="b-phone" type="tel" placeholder="+27 11 000 0000">
+                  </div>
+                  <div class="st-field">
+                    <label class="st-label" for="b-whatsapp_number">WhatsApp</label>
+                    <input class="a-input" id="b-whatsapp_number" type="tel" placeholder="+27 82 000 0000">
+                  </div>
+                </div>
+                <div class="st-field">
+                  <label class="st-label" for="b-email">Email</label>
+                  <input class="a-input" id="b-email" type="email" placeholder="hello@yoursalon.co.za">
+                </div>
+                <div class="st-field">
+                  <label class="st-label" for="b-address">Address</label>
+                  <input class="a-input" id="b-address" type="text" placeholder="123 Main Road, Johannesburg">
+                </div>
+                <div class="st-field">
+                  <label class="st-label" for="b-map_url">Map embed URL</label>
+                  <input class="a-input" id="b-map_url" type="url" placeholder="https://www.google.com/maps/embed?pb=...">
+                  <p class="st-hint">Paste the src from Google Maps → Share → Embed a map.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="a-card">
+              <div class="a-card-head">
+                <h2 class="a-card-title">Social</h2>
+              </div>
+              <div class="a-card-body">
+                <div class="st-field">
+                  <label class="st-label" for="b-instagram">Instagram</label>
+                  <input class="a-input" id="b-instagram" type="url" placeholder="https://instagram.com/yourhandle">
+                </div>
+                <div class="st-field">
+                  <label class="st-label" for="b-facebook">Facebook</label>
+                  <input class="a-input" id="b-facebook" type="url" placeholder="https://facebook.com/yourpage">
+                </div>
+                <div class="st-field">
+                  <label class="st-label" for="b-tiktok">TikTok</label>
+                  <input class="a-input" id="b-tiktok" type="url" placeholder="https://tiktok.com/@yourhandle">
+                </div>
+              </div>
+            </div>
+
+            <div class="a-card">
+              <div class="a-card-head">
+                <h2 class="a-card-title">Display hours</h2>
+              </div>
+              <div class="a-card-body">
+                <p class="st-hint" style="margin: 0 0 16px;">
+                  These are the hours shown on your public site. Your actual bookable hours live under <a href="/admin/availability.html">Availability</a>.
+                </p>
+                <div class="st-hours">
+                  <div class="st-hours-row"><label class="st-hours-day" for="h-mon">Monday</label><input class="a-input" id="h-mon" type="text" placeholder="09:00–17:00"></div>
+                  <div class="st-hours-row"><label class="st-hours-day" for="h-tue">Tuesday</label><input class="a-input" id="h-tue" type="text" placeholder="09:00–17:00"></div>
+                  <div class="st-hours-row"><label class="st-hours-day" for="h-wed">Wednesday</label><input class="a-input" id="h-wed" type="text" placeholder="09:00–17:00"></div>
+                  <div class="st-hours-row"><label class="st-hours-day" for="h-thu">Thursday</label><input class="a-input" id="h-thu" type="text" placeholder="09:00–19:00"></div>
+                  <div class="st-hours-row"><label class="st-hours-day" for="h-fri">Friday</label><input class="a-input" id="h-fri" type="text" placeholder="09:00–19:00"></div>
+                  <div class="st-hours-row"><label class="st-hours-day" for="h-sat">Saturday</label><input class="a-input" id="h-sat" type="text" placeholder="09:00–14:00"></div>
+                  <div class="st-hours-row"><label class="st-hours-day" for="h-sun">Sunday</label><input class="a-input" id="h-sun" type="text" placeholder="Closed"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="a-card">
+              <div class="a-card-head">
+                <h2 class="a-card-title">Client privacy</h2>
+              </div>
+              <div class="a-card-body">
+                <p class="st-hint" style="margin: 0 0 16px;">
+                  Shown to your clients. Explains how you handle their data. Leave blank if you don't have one yet.
+                  <a href="https://kaya-za.netlify.app" target="_blank" rel="noopener">See Kaya's policy →</a>
+                </p>
+                <textarea class="a-input" id="b-client_privacy_text" rows="6" placeholder="Your privacy policy text…"></textarea>
+              </div>
+            </div>
+
+            <div class="st-actions">
+              <button type="submit" class="a-btn a-btn-primary">Save changes</button>
+              <p class="st-message" id="b-message" role="status"></p>
+            </div>
+          </form>
+        </section>
+
+        <!-- Booking rules panel -->
+        <section class="st-panel" data-panel="rules">
+          <form id="form-rules" class="st-form">
+            <div class="a-card">
+              <div class="a-card-head">
+                <h2 class="a-card-title">Booking rules</h2>
+              </div>
+              <div class="a-card-body">
+                <div class="st-row">
+                  <div class="st-field">
+                    <label class="st-label" for="r-slot_interval_min">Slot interval (minutes)</label>
+                    <input class="a-input" id="r-slot_interval_min" type="number" min="5" step="5" required>
+                    <p class="st-hint">How often a slot can start. 15, 20, 30, or 60.</p>
+                  </div>
+                  <div class="st-field">
+                    <label class="st-label" for="r-buffer_min">Buffer between bookings (minutes)</label>
+                    <input class="a-input" id="r-buffer_min" type="number" min="0" step="5" required>
+                    <p class="st-hint">Cushion after each booking. 0 for back-to-back.</p>
+                  </div>
+                </div>
+                <div class="st-row">
+                  <div class="st-field">
+                    <label class="st-label" for="r-booking_min_notice_hours">Minimum notice (hours)</label>
+                    <input class="a-input" id="r-booking_min_notice_hours" type="number" min="0" step="1" required>
+                    <p class="st-hint">How far ahead a client must book. 2 = no same-day last-minute.</p>
+                  </div>
+                  <div class="st-field">
+                    <label class="st-label" for="r-booking_max_advance_days">Maximum advance (days)</label>
+                    <input class="a-input" id="r-booking_max_advance_days" type="number" min="1" step="1" required>
+                    <p class="st-hint">How far in the future clients can book. 60 = two months.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="st-actions">
+              <button type="submit" class="a-btn a-btn-primary">Save changes</button>
+              <p class="st-message" id="r-message" role="status"></p>
+            </div>
+          </form>
+        </section>
+
+        <!-- Calendar panel -->
+        <section class="st-panel" data-panel="calendar">
+          <form id="form-calendar" class="st-form">
+            <div class="a-card">
+              <div class="a-card-head">
+                <h2 class="a-card-title">Which days do you work?</h2>
+              </div>
+              <div class="a-card-body">
+                <p class="st-hint" style="margin: 0 0 12px;">
+                  Shown as columns in your calendar. Also used for scheduling.
+                </p>
+                <div class="st-checkbox-row" id="cal-days">
+                  <label><input type="checkbox" value="mon"> Monday</label>
+                  <label><input type="checkbox" value="tue"> Tuesday</label>
+                  <label><input type="checkbox" value="wed"> Wednesday</label>
+                  <label><input type="checkbox" value="thu"> Thursday</label>
+                  <label><input type="checkbox" value="fri"> Friday</label>
+                  <label><input type="checkbox" value="sat"> Saturday</label>
+                  <label><input type="checkbox" value="sun"> Sunday</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="a-card">
+              <div class="a-card-head">
+                <h2 class="a-card-title">Calendar hours</h2>
+              </div>
+              <div class="a-card-body">
+                <p class="st-hint" style="margin: 0 0 16px;">
+                  The time range shown in the calendar grid.
+                </p>
+                <div class="st-row">
+                  <div class="st-field">
+                    <label class="st-label" for="c-start">Grid starts</label>
+                    <input class="a-input" id="c-start" type="time" step="900" required>
+                  </div>
+                  <div class="st-field">
+                    <label class="st-label" for="c-end">Grid ends</label>
+                    <input class="a-input" id="c-end" type="time" step="900" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="st-actions">
+              <button type="submit" class="a-btn a-btn-primary">Save changes</button>
+              <p class="st-message" id="c-message" role="status"></p>
+            </div>
+          </form>
+        </section>
+
+        <!-- Account panel -->
+        <section class="st-panel" data-panel="account">
+          <div class="a-card">
+            <div class="a-card-head">
+              <h2 class="a-card-title">Account</h2>
+            </div>
+            <div class="a-card-body">
+              <div class="st-field">
+                <label class="st-label">Email</label>
+                <input class="a-input" id="a-email" type="email" readonly>
+                <p class="st-hint">To change your sign-in email, contact support.</p>
+              </div>
             </div>
           </div>
-        </div>
+
+          <div class="a-card">
+            <div class="a-card-head">
+              <h2 class="a-card-title">Change password</h2>
+            </div>
+            <div class="a-card-body">
+              <form id="form-password">
+                <div class="st-field">
+                  <label class="st-label" for="a-new-password">New password</label>
+                  <input class="a-input" id="a-new-password" type="password" autocomplete="new-password" minlength="8" required>
+                  <p class="st-hint">At least 8 characters.</p>
+                </div>
+                <div class="st-field">
+                  <label class="st-label" for="a-confirm-password">Confirm new password</label>
+                  <input class="a-input" id="a-confirm-password" type="password" autocomplete="new-password" minlength="8" required>
+                </div>
+                <div class="st-actions">
+                  <button type="submit" class="a-btn a-btn-primary">Change password</button>
+                  <p class="st-message" id="a-password-message" role="status"></p>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="a-card">
+            <div class="a-card-head">
+              <h2 class="a-card-title">Sessions</h2>
+            </div>
+            <div class="a-card-body">
+              <p class="st-hint" style="margin: 0 0 16px;">
+                Signing out everywhere will end this session and any others where you're signed in.
+              </p>
+              <button type="button" class="a-btn a-btn-ghost" id="a-signout-all">Sign out everywhere</button>
+            </div>
+          </div>
+        </section>
+
       </main>
     </div>
   </div>
 
-  <script type="module">
-    import { guard, mountSidebar, mountTopbar, mountUser } from './assets/admin.js';
-    const session = await guard();
-    if (session) {
-      mountSidebar('PAGE_KEY');
-      mountTopbar('PAGE_TITLE');
-      await mountUser(session);
-    }
-  </script>
+  <script type="module" src="/admin/assets/settings.js"></script>
 </body>
 </html>
