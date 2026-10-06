@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en-ZA">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Calendar — Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/tokens.css">
   <link rel="stylesheet" href="/admin/assets/admin.css">
 </head>
+
 <body class="admin-body">
 
   <div class="admin-shell">
@@ -28,9 +32,12 @@
             <button type="button" class="a-btn a-btn-ghost a-btn-sm" id="cal-next" aria-label="Next">→</button>
             <h1 class="a-cal-range" id="cal-range">—</h1>
           </div>
-          <div class="a-cal-view-toggle" role="group" aria-label="View">
-            <button type="button" class="a-btn a-btn-ghost a-btn-sm is-active" data-view="week">Week</button>
-            <button type="button" class="a-btn a-btn-ghost a-btn-sm" data-view="day">Day</button>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <div class="a-cal-view-toggle" role="group" aria-label="View">
+              <button type="button" class="a-btn a-btn-ghost a-btn-sm is-active" data-view="week">Week</button>
+              <button type="button" class="a-btn a-btn-ghost a-btn-sm" data-view="day">Day</button>
+            </div>
+            <button type="button" class="a-btn a-btn-primary a-btn-sm" id="new-booking-btn">+ New booking</button>
           </div>
         </div>
 
@@ -38,7 +45,9 @@
         <div class="a-card a-cal-card">
           <div class="a-cal-scroll" id="cal-scroll">
             <div class="a-cal-grid" id="cal-grid">
-              <div class="a-empty"><h3>Loading…</h3></div>
+              <div class="a-empty">
+                <h3>Loading…</h3>
+              </div>
             </div>
           </div>
         </div>
@@ -49,4 +58,5 @@
 
   <script type="module" src="/admin/assets/calendar.js"></script>
 </body>
+
 </html>

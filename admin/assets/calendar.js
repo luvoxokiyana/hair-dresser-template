@@ -14,6 +14,7 @@ import {
   startOfWeekSast, endOfWeekSast,
   sastToUtc, utcToSast, sastWeekday, toSastDateStr,
 } from '/assets/js/booking/slots.js';
+import { openNewBooking } from './new-booking.js';
 
 /* --- Constants ----------------------------------------------------------- */
 
@@ -35,7 +36,7 @@ const state = {
   settings: null,
   visibleDays: WEEKDAYS, // derived from settings
   dayStartMin: 8 * 60,   // 08:00
-  dayEndMin:   19 * 60,  // 19:00
+  dayEndMin: 19 * 60,  // 19:00
   bookings: [],
 };
 
@@ -54,13 +55,21 @@ if (session) {
 /* --- Init ---------------------------------------------------------------- */
 
 async function init() {
-  els.scroll    = document.getElementById('cal-scroll');
-  els.grid      = document.getElementById('cal-grid');
-  els.range     = document.getElementById('cal-range');
-  els.prev      = document.getElementById('cal-prev');
-  els.next      = document.getElementById('cal-next');
-  els.today     = document.getElementById('cal-today');
-  els.viewBtns  = document.querySelectorAll('[data-view]');
+  els.scroll = document.getElementById('cal-scroll');
+  els.grid = document.getElementById('cal-grid');
+  els.range = document.getElementById('cal-range');
+  els.prev = document.getElementById('cal-prev');
+  els.next = document.getElementById('cal-next');
+  els.today = document.getElementById('cal-today');
+  els.viewBtns = document.querySelectorAll('[data-view]');
+
+  const newBtn = document.getElementById('new-booking-btn');
+  if (newBtn) {
+    newBtn.addEventListener('click', () => {
+      /* Prefill with the anchor date, no time */
+      openNewBooking({ date: toSastDateStr(state.anchor) }, () => fetchAndRender());
+    });
+  }
 
   /* Read URL */
   const p = new URLSearchParams(location.search);
@@ -112,7 +121,7 @@ function deriveCalendarBounds() {
   /* Hours shown */
   if (s.calendar_hours && s.calendar_hours.start && s.calendar_hours.end) {
     state.dayStartMin = parseHHMM(s.calendar_hours.start) ?? state.dayStartMin;
-    state.dayEndMin   = parseHHMM(s.calendar_hours.end)   ?? state.dayEndMin;
+    state.dayEndMin = parseHHMM(s.calendar_hours.end) ?? state.dayEndMin;
   }
 }
 
@@ -155,11 +164,11 @@ function shift(dir) {
 function visibleRange() {
   if (state.view === 'week') {
     const start = startOfWeekSast(state.anchor);
-    const end   = new Date(start.getTime() + 7 * 24 * 60 * 60 * 1000);
+    const end = new Date(start.getTime() + 7 * 24 * 60 * 60 * 1000);
     return { from: start, to: end, days: weekDaysFrom(start) };
   }
   const start = startOfDaySast(state.anchor);
-  const end   = endOfDaySast(state.anchor);
+  const end = endOfDaySast(state.anchor);
   return { from: start, to: end, days: [start] };
 }
 
@@ -203,7 +212,7 @@ function render() {
 
   /* Range label */
   const first = days[0];
-  const last  = days[days.length - 1];
+  const last = days[days.length - 1];
   els.range.textContent = state.view === 'week'
     ? `${fmtShort(first)} – ${fmtShort(last, true)}`
     : fmtLong(days[0]);
@@ -272,8 +281,22 @@ function createDayColumn(day) {
     const cell = document.createElement('div');
     cell.className = 'a-cal-cell';
     cell.style.height = `${60 / (state.dayEndMin - state.dayStartMin) * 100}%`;
+    cell.dataset.minutes = m;
     col.appendChild(cell);
   }
+
+  /* Click on empty slot → prefill new booking */
+  col.addEventListener('click', (e) => {
+    /* If the click landed on a booking block or a child of one, ignore */
+    if (e.target.closest('.a-cal-block')) return;
+
+    const cell = e.target.closest('.a-cal-cell');
+    if (!cell) return;
+
+    const dateStr = col.dataset.date;
+    const minutes = parseInt(cell.dataset.minutes, 10);
+    openNewBooking({ date: dateStr, timeMin: minutes }, () => fetchAndRender());
+  });
 
   /* Booking layer */
   const layer = document.createElement('div');
@@ -313,15 +336,15 @@ function layoutBookings(col, bookings) {
   for (let li = 0; li < lanes.length; li++) {
     for (const item of lanes[li]) {
       const el = renderBookingBlock(item.b);
-      const topPct    = ((item.s - state.dayStartMin) / total) * 100;
+      const topPct = ((item.s - state.dayStartMin) / total) * 100;
       const heightPct = ((item.e - item.s) / total) * 100;
-      const widthPct  = 100 / totalLanes;
-      const leftPct   = (li / totalLanes) * 100;
+      const widthPct = 100 / totalLanes;
+      const leftPct = (li / totalLanes) * 100;
 
-      el.style.top    = topPct + '%';
+      el.style.top = topPct + '%';
       el.style.height = heightPct + '%';
-      el.style.left   = leftPct + '%';
-      el.style.width  = widthPct + '%';
+      el.style.left = leftPct + '%';
+      el.style.width = widthPct + '%';
 
       el.addEventListener('click', (ev) => {
         ev.stopPropagation();
@@ -334,7 +357,7 @@ function layoutBookings(col, bookings) {
 }
 
 function renderBookingBlock(b) {
-  const client  = b.clients || {};
+  const client = b.clients || {};
   const service = b.services || {};
 
   const el = document.createElement('button');
@@ -379,7 +402,7 @@ function scrollToRelevantTime() {
 /* --- Slide-over --------------------------------------------------------- */
 
 function openBookingDetail(b) {
-  const client  = b.clients || {};
+  const client = b.clients || {};
   const service = b.services || {};
 
   const STATUS_LABEL = {
@@ -428,11 +451,13 @@ function openBookingDetail(b) {
     title: client.name || 'Booking',
     body,
     actions: [
-      { label: 'Open in bookings', onClick: (close) => {
-        close();
-        const q = new URLSearchParams({ search: client.name || '', range: 'all', status: 'all' });
-        location.href = `/admin/bookings.html?${q.toString()}`;
-      }},
+      {
+        label: 'Open in bookings', onClick: (close) => {
+          close();
+          const q = new URLSearchParams({ search: client.name || '', range: 'all', status: 'all' });
+          location.href = `/admin/bookings.html?${q.toString()}`;
+        }
+      },
     ],
   });
 }

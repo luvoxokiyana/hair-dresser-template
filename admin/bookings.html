@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en-ZA">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bookings — Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/tokens.css">
   <link rel="stylesheet" href="/admin/assets/admin.css">
 </head>
+
 <body class="admin-body">
 
   <div class="admin-shell">
@@ -19,9 +23,12 @@
       <header class="a-topbar" id="topbar"></header>
 
       <main class="a-content">
-        <div class="a-page-head">
-          <h1 class="a-page-title">Bookings</h1>
-          <p class="a-page-sub">All bookings, filterable and searchable.</p>
+        <div class="a-page-head a-page-head--split">
+          <div>
+            <h1 class="a-page-title">Bookings</h1>
+            <p class="a-page-sub">All bookings, filterable and searchable.</p>
+          </div>
+          <button type="button" class="a-btn a-btn-primary" id="new-booking-btn">+ New booking</button>
         </div>
 
         <!-- Filter bar -->
@@ -96,4 +103,5 @@
 
   <script type="module" src="/admin/assets/bookings.js"></script>
 </body>
+
 </html>

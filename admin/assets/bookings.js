@@ -13,6 +13,7 @@ import {
   startOfWeekSast, endOfWeekSast,
   toSastDateStr,
 } from '/assets/js/booking/slots.js';
+import { openNewBooking } from './new-booking.js';
 
 /* --- Constants ----------------------------------------------------------- */
 
@@ -22,20 +23,20 @@ const STATUS_LABEL = {
   confirmed: 'Confirmed',
   completed: 'Completed',
   cancelled: 'Cancelled',
-  no_show:   'No-show',
+  no_show: 'No-show',
 };
 
 /* --- State --------------------------------------------------------------- */
 
 const state = {
-  status:  'active',
-  range:   'week',
+  status: 'active',
+  range: 'week',
   service: '',
-  search:  '',
-  sort:    'asc',
-  page:    1,
-  total:   0,
-  rows:    [],
+  search: '',
+  sort: 'asc',
+  page: 1,
+  total: 0,
+  rows: [],
 };
 
 const els = {};
@@ -59,12 +60,12 @@ async function init() {
   els.count = document.getElementById('results-count');
   els.pagination = document.getElementById('pagination');
 
-  els.status  = document.getElementById('f-status');
-  els.range   = document.getElementById('f-range');
+  els.status = document.getElementById('f-status');
+  els.range = document.getElementById('f-range');
   els.service = document.getElementById('f-service');
-  els.search  = document.getElementById('f-search');
-  els.sort    = document.getElementById('f-sort');
-  els.reset   = document.getElementById('f-reset');
+  els.search = document.getElementById('f-search');
+  els.sort = document.getElementById('f-sort');
+  els.reset = document.getElementById('f-reset');
 
   /* Load filters from URL */
   readUrlIntoState();
@@ -75,9 +76,9 @@ async function init() {
 
   /* Wire events */
   els.status.addEventListener('change', () => { state.status = els.status.value; state.page = 1; syncAndFetch(); });
-  els.range.addEventListener('change',  () => { state.range  = els.range.value;  state.page = 1; syncAndFetch(); });
+  els.range.addEventListener('change', () => { state.range = els.range.value; state.page = 1; syncAndFetch(); });
   els.service.addEventListener('change', () => { state.service = els.service.value; state.page = 1; syncAndFetch(); });
-  els.sort.addEventListener('change',   () => { state.sort   = els.sort.value;   state.page = 1; syncAndFetch(); });
+  els.sort.addEventListener('change', () => { state.sort = els.sort.value; state.page = 1; syncAndFetch(); });
 
   let searchTimer;
   els.search.addEventListener('input', () => {
@@ -95,6 +96,13 @@ async function init() {
     syncAndFetch();
   });
 
+  const newBtn = document.getElementById('new-booking-btn');
+  if (newBtn) {
+    newBtn.addEventListener('click', () => {
+      openNewBooking({}, () => fetch());
+    });
+  }
+
   await fetch();
 }
 
@@ -102,31 +110,31 @@ async function init() {
 
 function readUrlIntoState() {
   const p = new URLSearchParams(location.search);
-  if (p.get('status'))  state.status  = p.get('status');
-  if (p.get('range'))   state.range   = p.get('range');
+  if (p.get('status')) state.status = p.get('status');
+  if (p.get('range')) state.range = p.get('range');
   if (p.get('service')) state.service = p.get('service');
-  if (p.get('search'))  state.search  = p.get('search');
-  if (p.get('sort'))    state.sort    = p.get('sort');
-  if (p.get('page'))    state.page    = Math.max(1, parseInt(p.get('page'), 10) || 1);
+  if (p.get('search')) state.search = p.get('search');
+  if (p.get('sort')) state.sort = p.get('sort');
+  if (p.get('page')) state.page = Math.max(1, parseInt(p.get('page'), 10) || 1);
 }
 
 function syncUrl() {
   const p = new URLSearchParams();
-  if (state.status  !== 'active') p.set('status',  state.status);
-  if (state.range   !== 'week')   p.set('range',   state.range);
-  if (state.service)              p.set('service', state.service);
-  if (state.search)               p.set('search',  state.search);
-  if (state.sort    !== 'asc')    p.set('sort',    state.sort);
-  if (state.page    !== 1)        p.set('page',    state.page);
+  if (state.status !== 'active') p.set('status', state.status);
+  if (state.range !== 'week') p.set('range', state.range);
+  if (state.service) p.set('service', state.service);
+  if (state.search) p.set('search', state.search);
+  if (state.sort !== 'asc') p.set('sort', state.sort);
+  if (state.page !== 1) p.set('page', state.page);
   const qs = p.toString();
   history.replaceState(null, '', qs ? `?${qs}` : location.pathname);
 }
 
 function applyStateToInputs() {
-  els.status.value  = state.status;
-  els.range.value   = state.range;
-  els.sort.value    = state.sort;
-  els.search.value  = state.search;
+  els.status.value = state.status;
+  els.range.value = state.range;
+  els.sort.value = state.sort;
+  els.search.value = state.search;
 }
 
 async function syncAndFetch() {
@@ -158,7 +166,7 @@ function rangeBounds(range) {
   const now = new Date();
   switch (range) {
     case 'today': return [startOfDaySast(now), endOfDaySast(now)];
-    case 'week':  return [startOfWeekSast(now), endOfWeekSast(now)];
+    case 'week': return [startOfWeekSast(now), endOfWeekSast(now)];
     case 'next7': {
       const from = startOfDaySast(now);
       const to = new Date(from.getTime() + 7 * 24 * 60 * 60 * 1000);
@@ -166,12 +174,12 @@ function rangeBounds(range) {
     }
     case 'month': {
       const from = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1) - 120 * 60 * 1000);
-      const to   = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1) - 120 * 60 * 1000);
+      const to = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1) - 120 * 60 * 1000);
       return [from, to];
     }
-    case 'past':  return [new Date(0), startOfDaySast(now)];
+    case 'past': return [new Date(0), startOfDaySast(now)];
     case 'all':
-    default:      return [null, null];
+    default: return [null, null];
   }
 }
 
@@ -191,11 +199,11 @@ async function fetch() {
       services ( id, name, price, duration_min )
     `, { count: 'exact' });
 
-  if (state.status === 'active')   q = q.in('status', ['confirmed', 'completed']);
+  if (state.status === 'active') q = q.in('status', ['confirmed', 'completed']);
   else if (state.status !== 'all') q = q.eq('status', state.status);
 
   if (from) q = q.gte('start_at', from.toISOString());
-  if (to)   q = q.lt('start_at', to.toISOString());
+  if (to) q = q.lt('start_at', to.toISOString());
 
   if (state.service) q = q.eq('service_id', state.service);
 
