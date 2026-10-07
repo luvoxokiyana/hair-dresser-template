@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gallery — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/admin/assets/admin.css">
+</head>
+<body class="admin-body">
+
+  <div class="admin-shell">
+    <aside class="a-sidebar" id="sidebar"></aside>
+
+    <div class="a-main">
+      <header class="a-topbar" id="topbar"></header>
+
+      <main class="a-content">
+        <div class="a-page-head a-page-head--split">
+          <div>
+            <h1 class="a-page-title">Gallery</h1>
+            <p class="a-page-sub">Photos shown on your public site. Drag to reorder isn't here yet — use the arrows.</p>
+          </div>
+          <button type="button" class="a-btn a-btn-primary" id="add-photos-btn">+ Add photos</button>
+        </div>
+
+        <div class="a-card">
+          <div class="a-card-head">
+            <h2 class="a-card-title">Photos</h2>
+            <span class="a-results-count" id="photos-count"></span>
+          </div>
+          <div class="a-card-body a-card-body--flush" id="photos-grid">
+            <div class="a-empty"><h3>Loading…</h3></div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script type="module" src="/admin/assets/gallery.js"></script>
+</body>
+</html>

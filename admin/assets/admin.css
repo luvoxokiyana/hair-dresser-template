@@ -2230,3 +2230,118 @@
   object-fit: cover;
   display: block;
 }
+
+/* --------------------------------------------------------------------------
+   Gallery admin — grid of photo cards
+   -------------------------------------------------------------------------- */
+
+.gl-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+@media (max-width: 520px) {
+  .gl-grid { grid-template-columns: minmax(0, 1fr); padding: 16px; }
+}
+
+.gl-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--a-surface);
+  border: 1px solid var(--a-border);
+  border-radius: var(--a-radius);
+  overflow: hidden;
+  position: relative;
+  transition: border-color var(--t-fast);
+}
+.gl-card:hover { border-color: var(--a-border-firm); }
+
+.gl-photo {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--a-surface-2);
+}
+.gl-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Reorder buttons — top-left overlay */
+.gl-order {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity var(--t-fast);
+  background: rgba(255,255,255,0.9);
+  border-radius: 4px;
+  padding: 2px;
+  backdrop-filter: blur(4px);
+}
+.gl-card:hover .gl-order,
+.gl-card:focus-within .gl-order { opacity: 1; }
+
+.gl-order-btn {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--a-text);
+  cursor: pointer;
+  border-radius: 2px;
+}
+.gl-order-btn:hover:not(:disabled) { background: var(--a-border); }
+.gl-order-btn:disabled { opacity: 0.3; cursor: default; }
+
+/* Caption */
+.gl-caption-wrap {
+  padding: 10px 12px 8px;
+}
+
+.gl-caption {
+  width: 100%;
+  padding: 6px 8px;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  color: var(--a-text);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--a-radius-sm);
+  transition: border-color var(--t-fast), background var(--t-fast);
+}
+.gl-caption::placeholder { color: var(--a-text-faint); font-style: italic; }
+
+.gl-caption:hover { background: var(--a-surface-2); }
+.gl-caption:focus {
+  outline: none;
+  background: var(--a-surface);
+  border-color: var(--a-accent);
+}
+
+/* Actions — bottom row */
+.gl-actions {
+  padding: 0 12px 12px;
+  display: flex;
+  justify-content: flex-end;
+  opacity: 0;
+  transition: opacity var(--t-fast);
+}
+.gl-card:hover .gl-actions,
+.gl-card:focus-within .gl-actions { opacity: 1; }
+
+/* On mobile, keep actions visible */
+@media (max-width: 520px) {
+  .gl-order, .gl-actions { opacity: 1; }
+}
