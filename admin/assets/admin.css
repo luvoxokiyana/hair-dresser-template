@@ -2080,3 +2080,122 @@
   border-bottom: 1px solid transparent;
 }
 .cd-more:hover { border-bottom-color: var(--a-accent-hover); }
+
+/* --------------------------------------------------------------------------
+   Blog — admin list
+   -------------------------------------------------------------------------- */
+
+.bl-list { list-style: none; margin: 0; padding: 0; }
+
+.bl-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--a-border);
+}
+.bl-row:last-child { border-bottom: none; }
+.bl-row:hover { background: var(--a-surface-2); }
+
+.bl-main { min-width: 0; }
+
+.bl-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--a-text);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bl-meta {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  color: var(--a-text-muted);
+  margin: 4px 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bl-slug { color: var(--a-text-faint); }
+.bl-date { color: var(--a-text-muted); }
+
+.bl-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity var(--t-fast);
+}
+.bl-row:hover .bl-actions,
+.bl-row:focus-within .bl-actions { opacity: 1; }
+
+@media (max-width: 700px) {
+  .bl-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+  .bl-actions { opacity: 1; flex-wrap: wrap; }
+}
+
+/* --------------------------------------------------------------------------
+   Blog form (slide-over)
+   -------------------------------------------------------------------------- */
+
+.bl-form { display: flex; flex-direction: column; gap: 16px; }
+
+.bl-field { display: flex; flex-direction: column; gap: 6px; }
+
+.bl-field--row { gap: 10px; }
+
+.bl-label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--a-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.bl-required { color: var(--a-danger); }
+.bl-optional { color: var(--a-text-faint); text-transform: none; letter-spacing: 0; }
+
+.bl-hint {
+  font-size: 0.75rem;
+  color: var(--a-text-muted);
+  margin: 6px 0 0;
+  line-height: 1.4;
+}
+
+.bl-body {
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  min-height: 220px;
+  resize: vertical;
+}
+
+.bl-radio-group {
+  display: flex;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.bl-radio {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  color: var(--a-text);
+  cursor: pointer;
+}
+
+.bl-error {
+  font-size: 0.8125rem;
+  color: var(--a-danger);
+  margin: 0;
+  min-height: 1.2em;
+}

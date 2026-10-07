@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Privacy</title>
-  <meta name="description" content="How we handle your information.">
+  <title>Journal</title>
+  <meta name="description" content="Notes, tips, and stories from the salon.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,18 +25,16 @@
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/services.html">Services</a></li>
-          <li><a href="/blog.html">Blog</a></li>
+          <li><a href="/gallery.html">Gallery</a></li>
           <li><a href="/about.html">About us</a></li>
         </ul>
       </nav>
-
       <nav class="nav-cluster nav-cluster--right" aria-label="Secondary">
         <ul>
+          <li><a href="/blog.html">Journal</a></li>
           <li><a href="/contact.html">Contact us</a></li>
-          <li><a href="/contact.html">Getting here</a></li>
         </ul>
       </nav>
-
       <button class="nav-toggle" aria-expanded="false" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -44,23 +42,21 @@
   </header>
 
   <main id="main">
-
     <section class="page-hero">
       <div class="container">
-        <p class="bracket">Privacy</p>
-        <h1>How we handle your information</h1>
-        <p>What we collect when you book, why, and what you can ask us to do about it.</p>
+        <p class="bracket">Journal</p>
+        <h1>Notes from the salon</h1>
+        <p>Tips, updates, and occasional thoughts about hair.</p>
       </div>
     </section>
 
     <section class="section">
-      <div class="container container--narrow">
-        <div class="prose" id="privacy-content">
+      <div class="container">
+        <div class="post-list" id="post-list">
           <p class="muted">Loading…</p>
         </div>
       </div>
     </section>
-
   </main>
 
   <footer class="site-footer">
@@ -70,25 +66,20 @@
           <p class="footer-brand" data-business-name>Salon</p>
           <a href="/booking.html" class="btn btn-primary">Book now</a>
         </div>
-
         <div>
           <p class="footer-head">Visit</p>
           <ul class="footer-list" id="footer-visit"><li>—</li></ul>
         </div>
-
         <div>
           <p class="footer-head">Hours</p>
           <ul class="footer-list" id="footer-hours"><li>—</li></ul>
         </div>
-
         <div>
           <p class="footer-head">Follow</p>
           <ul class="footer-list" id="footer-social"><li>—</li></ul>
         </div>
       </div>
-
       <hr class="footer-rule">
-
       <div class="footer-bottom">
         <span>© <span id="year"></span> <span data-business-name>Salon</span></span>
         <span><a href="/admin/index.html">Admin</a></span>
@@ -96,6 +87,6 @@
     </div>
   </footer>
 
-  <script type="module" src="/assets/js/public/privacy.js"></script>
+  <script type="module" src="/assets/js/public/blog.js"></script>
 </body>
 </html>
