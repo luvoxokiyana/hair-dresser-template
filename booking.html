@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Book an appointment</title>
+  <meta name="description" content="Book your appointment in under a minute.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/public.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- HEADER — matches index.html exactly -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <nav class="nav-cluster" aria-label="Primary">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/gallery.html">Gallery</a></li>
+          <li><a href="/about.html">About us</a></li>
+        </ul>
+      </nav>
+
+      <nav class="nav-cluster nav-cluster--right" aria-label="Secondary">
+        <ul>
+          <li><a href="/contact.html">Contact us</a></li>
+          <li><a href="/contact.html">Getting here</a></li>
+        </ul>
+      </nav>
+
+      <button class="nav-toggle" aria-expanded="false" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="book-main">
+
+    <div class="container">
+      <div class="book-head">
+        <p class="bracket">Book</p>
+        <h1 class="book-title">Book your appointment</h1>
+        <p class="book-sub">Pick a service, choose a time, done. No account needed.</p>
+      </div>
+
+      <div class="book-layout">
+
+        <div class="book-flow">
+
+          <!-- 1. Service -->
+          <section class="book-step is-active" data-step="service">
+            <div class="book-step-head">
+              <span class="book-step-num">01</span>
+              <h2 class="book-step-title">What are you having?</h2>
+            </div>
+            <div class="book-services" id="services"></div>
+          </section>
+
+          <!-- 2. Date -->
+          <section class="book-step" data-step="date" hidden>
+            <div class="book-step-head">
+              <span class="book-step-num">02</span>
+              <h2 class="book-step-title">When?</h2>
+            </div>
+            <div class="book-dates" id="dates"></div>
+          </section>
+
+          <!-- 3. Time -->
+          <section class="book-step" data-step="time" hidden>
+            <div class="book-step-head">
+              <span class="book-step-num">03</span>
+              <h2 class="book-step-title">What time?</h2>
+            </div>
+            <div class="book-slots" id="slots">
+              <p class="book-empty">Loading…</p>
+            </div>
+          </section>
+
+          <!-- 4. Details -->
+          <section class="book-step" data-step="details" hidden>
+            <div class="book-step-head">
+              <span class="book-step-num">04</span>
+              <h2 class="book-step-title">Your details</h2>
+            </div>
+            <form class="book-form" id="details-form" onsubmit="return false;">
+              <div class="book-field">
+                <label class="book-label" for="b-name">Your name <span class="book-req">*</span></label>
+                <input class="book-input" id="b-name" type="text" required autocomplete="name" placeholder="Thandi Mokoena">
+              </div>
+              <div class="book-field">
+                <label class="book-label" for="b-phone">Phone <span class="book-req">*</span></label>
+                <input class="book-input" id="b-phone" type="tel" required autocomplete="tel" placeholder="+27 82 123 4567">
+                <p class="book-help">We'll only use this to confirm your appointment.</p>
+              </div>
+              <div class="book-field">
+                <label class="book-label" for="b-email">Email <span class="book-opt">(optional)</span></label>
+                <input class="book-input" id="b-email" type="email" autocomplete="email" placeholder="you@example.com">
+              </div>
+              <div class="book-field">
+                <label class="book-label" for="b-notes">Anything we should know? <span class="book-opt">(optional)</span></label>
+                <textarea class="book-input" id="b-notes" rows="3" placeholder="Allergies, preferences…"></textarea>
+              </div>
+            </form>
+          </section>
+
+          <!-- Error -->
+          <p class="book-error" id="book-error" role="alert"></p>
+        </div>
+
+        <!-- Summary -->
+        <aside class="book-summary">
+          <div class="book-summary-inner">
+            <p class="book-summary-title">Your booking</p>
+
+            <dl class="book-summary-list">
+              <div class="book-summary-row" data-summary="service">
+                <dt>Service</dt>
+                <dd id="sum-service">—</dd>
+              </div>
+              <div class="book-summary-row" data-summary="when">
+                <dt>When</dt>
+                <dd id="sum-when">—</dd>
+              </div>
+              <div class="book-summary-row" data-summary="price">
+                <dt>Price</dt>
+                <dd id="sum-price">—</dd>
+              </div>
+            </dl>
+
+            <button type="button" class="book-confirm" id="confirm-btn" disabled>
+              Confirm booking
+            </button>
+
+            <p class="book-summary-note">
+              By booking you agree to our <a href="/privacy.html">privacy policy</a>.
+            </p>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Mobile sticky bar -->
+  <div class="book-sticky" id="book-sticky" hidden>
+    <div class="book-sticky-info">
+      <span class="book-sticky-price" id="sticky-price">—</span>
+      <span class="book-sticky-when" id="sticky-when"></span>
+    </div>
+    <button type="button" class="book-sticky-btn" id="sticky-confirm" disabled>Confirm</button>
+  </div>
+
+  <!-- FOOTER — matches index.html -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <p class="footer-brand" data-business-name>Salon</p>
+          <a href="/booking.html" class="btn btn-primary">Book now</a>
+        </div>
+
+        <div>
+          <p class="footer-head">Visit</p>
+          <ul class="footer-list" id="footer-visit">
+            <li>—</li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer-head">Hours</p>
+          <ul class="footer-list" id="footer-hours">
+            <li>—</li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer-head">Follow</p>
+          <ul class="footer-list" id="footer-social">
+            <li>—</li>
+          </ul>
+        </div>
+      </div>
+
+      <hr class="footer-rule">
+
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> <span data-business-name>Salon</span></span>
+        <span><a href="/admin/index.html">Admin</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/assets/js/public/booking.js"></script>
+</body>
+</html>

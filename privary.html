@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy</title>
+  <meta name="description" content="How we handle your information.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/public.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <nav class="nav-cluster" aria-label="Primary">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/gallery.html">Gallery</a></li>
+          <li><a href="/about.html">About us</a></li>
+        </ul>
+      </nav>
+
+      <nav class="nav-cluster nav-cluster--right" aria-label="Secondary">
+        <ul>
+          <li><a href="/contact.html">Contact us</a></li>
+          <li><a href="/contact.html">Getting here</a></li>
+        </ul>
+      </nav>
+
+      <button class="nav-toggle" aria-expanded="false" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="page-hero">
+      <div class="container">
+        <p class="bracket">Privacy</p>
+        <h1>How we handle your information</h1>
+        <p>What we collect when you book, why, and what you can ask us to do about it.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container container--narrow">
+        <div class="prose" id="privacy-content">
+          <p class="muted">Loading…</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <p class="footer-brand" data-business-name>Salon</p>
+          <a href="/booking.html" class="btn btn-primary">Book now</a>
+        </div>
+
+        <div>
+          <p class="footer-head">Visit</p>
+          <ul class="footer-list" id="footer-visit"><li>—</li></ul>
+        </div>
+
+        <div>
+          <p class="footer-head">Hours</p>
+          <ul class="footer-list" id="footer-hours"><li>—</li></ul>
+        </div>
+
+        <div>
+          <p class="footer-head">Follow</p>
+          <ul class="footer-list" id="footer-social"><li>—</li></ul>
+        </div>
+      </div>
+
+      <hr class="footer-rule">
+
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> <span data-business-name>Salon</span></span>
+        <span><a href="/admin/index.html">Admin</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/assets/js/public/privacy.js"></script>
+</body>
+</html>
