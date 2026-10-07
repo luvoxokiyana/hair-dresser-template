@@ -291,3 +291,114 @@ export function openSlideOver({ title, body, actions }) {
 
   return close;
 }
+
+/* --- Cloudinary image upload ------------------------------------------- */
+
+let cloudinaryScriptPromise = null;
+
+/**
+ * Load the Cloudinary upload widget script lazily.
+ * Returns a promise that resolves when `window.cloudinary` is available.
+ */
+function loadCloudinaryScript() {
+  if (window.cloudinary) return Promise.resolve();
+  if (cloudinaryScriptPromise) return cloudinaryScriptPromise;
+
+  cloudinaryScriptPromise = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://widget.cloudinary.com/v2.0/global/all.js';
+    s.async = true;
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error('Failed to load Cloudinary widget'));
+    document.head.appendChild(s);
+  });
+
+  return cloudinaryScriptPromise;
+}
+
+/**
+ * Open the Cloudinary upload widget and return the uploaded image.
+ * Requires CONFIG.CLOUDINARY_CLOUD and CONFIG.CLOUDINARY_UPLOAD_PRESET.
+ *
+ * @param {object} [opts]
+ * @param {string} [opts.folder]        — Cloudinary folder, e.g. `salons/tiffany-hair/gallery`
+ * @param {string[]} [opts.sources]     — allowed sources, default: local, camera, url
+ * @param {string} [opts.croppingAspect] — e.g. '1:1' or '16:9', optional
+ * @returns {Promise<{ url: string, publicId: string, width: number, height: number, format: string }>}
+ */
+export async function uploadImage(opts = {}) {
+  await loadCloudinaryScript();
+
+  const { CLOUDINARY_CLOUD, CLOUDINARY_UPLOAD_PRESET, SITE_SLUG } = CONFIG;
+
+  if (!CLOUDINARY_CLOUD || !CLOUDINARY_UPLOAD_PRESET) {
+    throw new Error('Cloudinary is not configured. Set CLOUDINARY_CLOUD and CLOUDINARY_UPLOAD_PRESET in config.js.');
+  }
+
+  const folder = opts.folder || `salons/${SITE_SLUG || 'unassigned'}`;
+
+  return new Promise((resolve, reject) => {
+    const widget = window.cloudinary.createUploadWidget(
+      {
+        cloudName: CLOUDINARY_CLOUD,
+        uploadPreset: CLOUDINARY_UPLOAD_PRESET,
+        folder,
+        sources: opts.sources || ['local', 'camera', 'url'],
+        multiple: false,
+        maxFileSize: 8000000,            // 8 MB
+        clientAllowedFormats: ['png', 'jpg', 'jpeg', 'webp', 'heic'],
+        cropping: !!opts.croppingAspect,
+        croppingAspectRatio: opts.croppingAspect
+          ? parseFloat(opts.croppingAspect.split(':')[0]) / parseFloat(opts.croppingAspect.split(':')[1])
+          : undefined,
+        showAdvancedOptions: false,
+        styles: {
+          palette: {
+            window: '#FFFFFF',
+            windowBorder: '#D0CCC3',
+            tabIcon: '#5C4A3A',
+            menuIcons: '#1F1D1A',
+            textDark: '#1F1D1A',
+            textLight: '#FFFFFF',
+            link: '#5C4A3A',
+            action: '#5C4A3A',
+            inactiveTabIcon: '#9A958C',
+            error: '#A85144',
+            inProgress: '#5C4A3A',
+            complete: '#5F7A5F',
+            sourceBg: '#F7F6F3',
+          },
+          fonts: {
+            default: null,
+            "'Inter', sans-serif": {
+              url: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap',
+              active: true,
+            },
+          },
+        },
+      },
+      (error, result) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+
+        if (result?.event === 'success') {
+          widget.close({ quiet: true });
+          const info = result.info;
+          resolve({
+            url: info.secure_url,
+            publicId: info.public_id,
+            width: info.width,
+            height: info.height,
+            format: info.format,
+          });
+        }
+        /* 'close' event without success means the user cancelled — do nothing,
+           the promise stays pending until they try again or navigate away. */
+      }
+    );
+
+    widget.open();
+  });
+}

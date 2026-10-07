@@ -8,6 +8,8 @@ import {
   guard, mountSidebar, mountTopbar, mountUser,
   toast, openSlideOver,
 } from './admin.js';
+import { CONFIG } from '/assets/js/config.js';
+
 
 /* --- State --------------------------------------------------------------- */
 
@@ -30,10 +32,10 @@ if (session) {
 /* --- Init ---------------------------------------------------------------- */
 
 async function init() {
-  els.published   = document.getElementById('posts-published');
-  els.draft       = document.getElementById('posts-draft');
-  els.pubCount    = document.getElementById('published-count');
-  els.draftCount  = document.getElementById('drafts-count');
+  els.published = document.getElementById('posts-published');
+  els.draft = document.getElementById('posts-draft');
+  els.pubCount = document.getElementById('published-count');
+  els.draftCount = document.getElementById('drafts-count');
 
   document.getElementById('new-post-btn').addEventListener('click', () => openForm(null));
 
@@ -62,13 +64,13 @@ async function fetchPosts() {
 
 function render() {
   const published = state.posts.filter(p => p.status === 'published');
-  const drafts    = state.posts.filter(p => p.status === 'draft');
+  const drafts = state.posts.filter(p => p.status === 'draft');
 
-  els.pubCount.textContent   = published.length === 1 ? '1 post' : `${published.length} posts`;
+  els.pubCount.textContent = published.length === 1 ? '1 post' : `${published.length} posts`;
   els.draftCount.textContent = drafts.length === 1 ? '1 draft' : `${drafts.length} drafts`;
 
   els.published.innerHTML = renderList(published, true);
-  els.draft.innerHTML     = renderList(drafts, false);
+  els.draft.innerHTML = renderList(drafts, false);
 
   document.querySelectorAll('[data-action]').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -80,11 +82,11 @@ function render() {
       if (!post) return;
 
       switch (action) {
-        case 'edit':      openForm(post); break;
-        case 'publish':   setStatus(post, 'published'); break;
+        case 'edit': openForm(post); break;
+        case 'publish': setStatus(post, 'published'); break;
         case 'unpublish': setStatus(post, 'draft'); break;
-        case 'view':      window.open(`/post.html?slug=${encodeURIComponent(post.slug)}`, '_blank'); break;
-        case 'delete':    removePost(post); break;
+        case 'view': window.open(`/post.html?slug=${encodeURIComponent(post.slug)}`, '_blank'); break;
+        case 'delete': removePost(post); break;
       }
     });
   });
@@ -113,18 +115,18 @@ function renderList(rows, isPublished) {
             <p class="bl-meta">
               <span class="bl-slug">/post.html?slug=${escapeHtml(p.slug)}</span>
               ${isPublished && p.published_at
-                ? ` · <span class="bl-date">Published ${formatDate(p.published_at)}</span>`
-                : ` · <span class="bl-date">Created ${formatDate(p.created_at)}</span>`
-              }
+      ? ` · <span class="bl-date">Published ${formatDate(p.published_at)}</span>`
+      : ` · <span class="bl-date">Created ${formatDate(p.created_at)}</span>`
+    }
             </p>
           </div>
           <div class="bl-actions">
             <button type="button" class="a-btn a-btn-ghost a-btn-sm" data-action="edit" data-id="${p.id}">Edit</button>
             ${isPublished
-              ? `<button type="button" class="a-btn a-btn-ghost a-btn-sm" data-action="view" data-id="${p.id}">View</button>
+      ? `<button type="button" class="a-btn a-btn-ghost a-btn-sm" data-action="view" data-id="${p.id}">View</button>
                  <button type="button" class="a-btn a-btn-ghost a-btn-sm" data-action="unpublish" data-id="${p.id}">Unpublish</button>`
-              : `<button type="button" class="a-btn a-btn-ghost a-btn-sm" data-action="publish" data-id="${p.id}">Publish</button>`
-            }
+      : `<button type="button" class="a-btn a-btn-ghost a-btn-sm" data-action="publish" data-id="${p.id}">Publish</button>`
+    }
             <button type="button" class="a-btn a-btn-danger a-btn-sm" data-action="delete" data-id="${p.id}">Delete</button>
           </div>
         </li>
@@ -158,9 +160,15 @@ function openForm(post) {
         <p class="bl-hint">Auto-generated from the title. Only lowercase letters, numbers, and hyphens.</p>
       </div>
 
-      <div class="bl-field">
-        <label class="bl-label" for="p-cover">Cover image URL <span class="bl-optional">(optional)</span></label>
-        <input class="a-input" id="p-cover" type="url" value="${escapeAttr(p.cover_cloudinary_id || '')}" placeholder="https://res.cloudinary.com/…">
+        <div class="bl-field">
+        <label class="bl-label" for="p-cover">Cover image <span class="bl-optional">(optional)</span></label>
+        <div class="bl-cover-row">
+          <input class="a-input" id="p-cover" type="url" value="${escapeAttr(p.cover_cloudinary_id || '')}" placeholder="https://res.cloudinary.com/…">
+          <button type="button" class="a-btn a-btn-ghost" id="p-cover-upload">Upload</button>
+        </div>
+        <div class="bl-cover-preview" id="p-cover-preview" ${p.cover_cloudinary_id ? '' : 'hidden'}>
+          <img src="${escapeAttr(p.cover_cloudinary_id || '')}" alt="">
+        </div>
       </div>
 
       <div class="bl-field">
@@ -208,7 +216,7 @@ function openForm(post) {
 
   /* Wire title → slug auto-generation (only on new posts, or when slug is empty) */
   const titleEl = document.getElementById('p-title');
-  const slugEl  = document.getElementById('p-slug');
+  const slugEl = document.getElementById('p-slug');
 
   titleEl.addEventListener('input', () => {
     if (!isEdit || !slugEl.dataset.touched) {
@@ -223,26 +231,62 @@ function openForm(post) {
   });
 
   setTimeout(() => document.getElementById('p-title')?.focus(), 50);
+   /* Cover upload + preview */
+  const coverInput = document.getElementById('p-cover');
+  const coverPreview = document.getElementById('p-cover-preview');
+  const coverUpload = document.getElementById('p-cover-upload');
+
+  coverUpload?.addEventListener('click', async () => {
+    coverUpload.disabled = true;
+    coverUpload.textContent = 'Uploading…';
+    try {
+      const result = await uploadImage({
+        folder: `salons/${CONFIG.SITE_SLUG}/blog`,
+        croppingAspect: '16:9',
+      });
+      coverInput.value = result.url;
+      showCoverPreview(result.url);
+    } catch (err) {
+      if (err?.message) toast(err.message);
+    } finally {
+      coverUpload.disabled = false;
+      coverUpload.textContent = 'Upload';
+    }
+  });
+
+  coverInput?.addEventListener('input', () => {
+    showCoverPreview(coverInput.value.trim());
+  });
+
+  function showCoverPreview(url) {
+    if (!url) {
+      coverPreview.hidden = true;
+      coverPreview.innerHTML = '';
+      return;
+    }
+    coverPreview.hidden = false;
+    coverPreview.innerHTML = `<img src="${escapeAttr(url)}" alt="">`;
+  }
 }
 
 async function submit(isEdit, post, close) {
   const titleEl = document.getElementById('p-title');
-  const slugEl  = document.getElementById('p-slug');
+  const slugEl = document.getElementById('p-slug');
   const coverEl = document.getElementById('p-cover');
-  const bodyEl  = document.getElementById('p-body');
-  const errEl   = document.getElementById('p-error');
+  const bodyEl = document.getElementById('p-body');
+  const errEl = document.getElementById('p-error');
 
   errEl.textContent = '';
 
   const title = titleEl.value.trim();
-  const slug  = slugify(slugEl.value.trim());
-  const body  = bodyEl.value.trim();
+  const slug = slugify(slugEl.value.trim());
+  const body = bodyEl.value.trim();
   const cover = coverEl.value.trim() || null;
   const status = document.querySelector('input[name="p-status"]:checked')?.value || 'draft';
 
-  if (!title)  { errEl.textContent = 'Title is required.'; titleEl.focus(); return false; }
-  if (!slug)   { errEl.textContent = 'Slug is required.'; slugEl.focus(); return false; }
-  if (!body)   { errEl.textContent = 'Body is required.'; bodyEl.focus(); return false; }
+  if (!title) { errEl.textContent = 'Title is required.'; titleEl.focus(); return false; }
+  if (!slug) { errEl.textContent = 'Slug is required.'; slugEl.focus(); return false; }
+  if (!body) { errEl.textContent = 'Body is required.'; bodyEl.focus(); return false; }
 
   const payload = {
     title,
