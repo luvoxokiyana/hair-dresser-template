@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" font-family="Inter, -apple-system, sans-serif">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#FAF6F1"/>
+
+  <!-- Faint drafting grid -->
+  <defs>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#1A1A1A" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Rose accent bar, top-left -->
+  <rect x="80" y="80" width="60" height="4" fill="#B8847A"/>
+
+  <!-- Eyebrow -->
+  <text x="80" y="128"
+        font-family="JetBrains Mono, monospace"
+        font-size="18"
+        font-weight="500"
+        letter-spacing="3"
+        fill="#B8847A"
+        text-transform="uppercase">FOR SOUTH AFRICAN SALONS</text>
+
+  <!-- Headline -->
+  <text x="80" y="260"
+        font-family="Cormorant Garamond, Georgia, serif"
+        font-size="76"
+        font-weight="400"
+        letter-spacing="-1.5"
+        fill="#1A1A1A">The booking site</text>
+  <text x="80" y="340"
+        font-family="Cormorant Garamond, Georgia, serif"
+        font-size="76"
+        font-weight="400"
+        letter-spacing="-1.5"
+        fill="#1A1A1A">your salon</text>
+  <text x="80" y="420"
+        font-family="Cormorant Garamond, Georgia, serif"
+        font-size="76"
+        font-weight="400"
+        font-style="italic"
+        letter-spacing="-1.5"
+        fill="#B8847A">actually deserves.</text>
+
+  <!-- Wordmark, bottom-left -->
+  <text x="80" y="548"
+        font-family="Cormorant Garamond, Georgia, serif"
+        font-size="42"
+        font-weight="500"
+        fill="#1A1A1A">Kaya</text>
+  <text x="152" y="548"
+        font-family="JetBrains Mono, monospace"
+        font-size="16"
+        font-weight="400"
+        letter-spacing="3"
+        fill="#8A8A8A">· HOME</text>
+
+  <!-- Bottom-right: kaya.co.za -->
+  <text x="1120" y="548"
+        font-family="JetBrains Mono, monospace"
+        font-size="16"
+        font-weight="400"
+        letter-spacing="2"
+        fill="#8A8A8A"
+        text-anchor="end">LYNXTECHZA@GMAIL.COM</text>
+</svg>

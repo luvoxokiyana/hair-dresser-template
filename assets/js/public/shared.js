@@ -30,7 +30,19 @@ export function setYear() {
 
 /* --- Business name in wordmark / footer / title -------------------------- */
 export function applyBusinessName(name) {
+  if (!name) return;
+
+  /* Replace every element tagged with data-business-name */
   document.querySelectorAll('[data-business-name]').forEach(el => {
+    el.textContent = name;
+  });
+
+  /* Replace "Salon" in the title if present. Works for titles like
+     "Home — Salon" or "Bookings — Salon" without touching the page part. */
+  if (document.title.includes('Salon')) {
+    document.title = document.title.replace(/\bSalon\b/g, name);
+  }
+}
     el.textContent = name;
   });
   if (name) {

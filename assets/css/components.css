@@ -218,3 +218,40 @@
   border-top: var(--b-hairline);
   margin: 0;
 }
+
+/* --- Skeleton loading ---------------------------------------------------- */
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--c-bg-alt) 0%,
+    var(--c-border) 50%,
+    var(--c-bg-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  border-radius: var(--r-sm);
+}
+
+@keyframes skeleton-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-line {
+  height: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-line--sm   { height: 0.625rem; width: 40%; }
+.skeleton-line--md   { height: 0.875rem; width: 70%; }
+.skeleton-line--lg   { height: 1.25rem;  width: 90%; }
+.skeleton-block      { aspect-ratio: 4 / 3; width: 100%; }
+
+/* Reduce motion: no shimmer, just a soft grey */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    background: var(--c-bg-alt);
+  }
+}
