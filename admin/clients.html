@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BOOKINGS_TITLE — Admin</title>
+  <title>Clients — Admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -20,30 +20,48 @@
 
       <main class="a-content">
         <div class="a-page-head">
-          <h1 class="a-page-title">PAGE_TITLE</h1>
-          <p class="a-page-sub">PAGE_SUB</p>
+          <h1 class="a-page-title">Clients</h1>
+          <p class="a-page-sub">Everyone who's ever booked with you.</p>
         </div>
 
-        <div class="a-card">
-          <div class="a-card-body">
-            <div class="a-empty">
-              <h3>Coming in a later phase</h3>
-              <p>This page is part of the admin shell. Functionality arrives in its phase.</p>
+        <!-- Filter bar -->
+        <div class="a-card" style="margin-bottom: 16px;">
+          <div class="a-filter-bar">
+            <div class="a-filter a-filter--grow">
+              <label class="a-filter-label" for="f-search">Search</label>
+              <input class="a-input a-input-sm" id="f-search" type="search" placeholder="Name or phone…">
             </div>
+
+            <div class="a-filter">
+              <label class="a-filter-label" for="f-sort">Sort</label>
+              <select class="a-input a-input-sm" id="f-sort">
+                <option value="recent" selected>Last booking (recent first)</option>
+                <option value="name">Name (A–Z)</option>
+                <option value="created">Recently added</option>
+              </select>
+            </div>
+
+            <button type="button" class="a-btn a-btn-ghost a-btn-sm" id="f-reset">Reset</button>
           </div>
         </div>
+
+        <!-- Results -->
+        <div class="a-card">
+          <div class="a-card-head">
+            <h2 class="a-card-title">Clients</h2>
+            <span class="a-results-count" id="results-count"></span>
+          </div>
+          <div class="a-card-body a-card-body--flush" id="clients-list">
+            <div class="a-empty"><h3>Loading…</h3></div>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="a-pagination" id="pagination"></div>
       </main>
     </div>
   </div>
 
-  <script type="module">
-    import { guard, mountSidebar, mountTopbar, mountUser } from './assets/admin.js';
-    const session = await guard();
-    if (session) {
-      mountSidebar('PAGE_KEY');
-      mountTopbar('PAGE_TITLE');
-      await mountUser(session);
-    }
-  </script>
+  <script type="module" src="/admin/assets/clients.js"></script>
 </body>
 </html>
